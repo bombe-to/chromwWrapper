@@ -1,0 +1,1 @@
+xcopy bin "{installpath}" /E /I
