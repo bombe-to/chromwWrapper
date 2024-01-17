@@ -1,0 +1,1 @@
+start bin/bin/chrome.exe --app="https://chrome.google.com/webstore"  --profile-directory="{app-name}" --user-data-dir="{app-name}"
