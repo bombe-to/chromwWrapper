@@ -1,34 +1,35 @@
 const yargs = require('yargs');
+const fs = require('fs');
 const FileManager = require('./FileManager');
-const Replacer = require('./Replacer');
+const PlatzhalterErsetzer = require('./PlatzhalterErsetzer');
 
 const argv = yargs
-    .option('path', {
-      alias: 'p',
-      describe: 'install target path',
-      demandOption: true,
-      type: 'string'
-    })
-   .option('name', {
-     alias: 'n',
-     describe: 'name der Anwendung',
-     demandOption: true,
-     type: 'string'
-   })
+  .option('path', {
+    alias: 'p',
+    describe: 'install target path',
+    demandOption: true,
+    type: 'string'
+  })
+  .option('name', {
+    alias: 'n',
+    describe: 'name der Anwendung',
+    demandOption: true,
+    type: 'string'
+  })
   .option('os', {
     alias: 'o',
     describe: 'operating system',
     demandOption: true,
     type: 'string'
   })
-    .option('site', {
-      alias: 's',
-      describe: 'website',
-      demandOption: true,
-      type: 'string'
-    })
-    .help()
-    .argv;
+  .option('site', {
+    alias: 's',
+    describe: 'website',
+    demandOption: true,
+    type: 'string'
+  })
+  .help()
+  .argv;
 
 class ConsoleApplication {
   constructor(option, param1, param2, param3) {
@@ -61,20 +62,28 @@ class ConsoleApplication {
   runWindows() {
     console.log(`Windows-Anwendung gestartet mit Parametern: ${this.param1}, ${this.param2}`);
 
-    var name="win.tar";
+    const name = "win.tar";
 
-    //install chrome
+    // Installiere Chrome
     const fileManager = new FileManager();
-    fileManager.verschiebeDateiQuellZiel("data/chrome/win", argv.path + "/" + argv.name + "/")
-    fileManager.entpackeTarDatei(argv.path + "/" + argv.name + "/win/tar/" + name,  argv.path + "/" + argv.name + "/");
 
-    fileManager.loescheVerzeichnisInhalt(argv.path + "/win/tar/");
+    fileManager.verschiebeDateiQuellZiel("data/chrome/win", `${argv.path}/${argv.name}/`);
+    fileManager.entpackeTarDatei(`${argv.path}/${argv.name}/win/tar/${name}`, `${argv.path}/${argv.name}/`);
 
-    //replace Application Parameter
-    const replacer = new Replacer();
-    replacer.ersetzePlatzhalter(argv.path + + "/" + argv.name + '/win/start.bat', {appname: "argv.name"});
+   
+    // Beispielaufruf
+const platzhalterErsetzer = new PlatzhalterErsetzer();
+const dateiPfad = `${argv.path}/${argv.name}/win/start.bat`;
+const platzhalterWerte = {
+  'app-path': argv.path,
+  'app-site': argv.site,
+  'app-name': argv.name
+};
 
+platzhalterErsetzer.ersetzePlatzhalterInDatei(dateiPfad, platzhalterWerte);
 
+    
+    fileManager.loescheVerzeichnisInhalt(`${argv.path}/win/tar/`);
   }
 
   runAndroid() {

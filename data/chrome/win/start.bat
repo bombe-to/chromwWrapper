@@ -1,1 +1,1 @@
-start bin\bin\chrome.exe --app="{appsite}" --profile-directory="{appname}" --user-data-dir="{appname}"
+start bin\bin\chrome.exe --app="${app-site}" --profile-directory="${app-path}" --user-data-dir="${app-name}"
