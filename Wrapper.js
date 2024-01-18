@@ -74,6 +74,7 @@ class ConsoleApplication {
     // Beispielaufruf
 const platzhalterErsetzer = new PlatzhalterErsetzer();
 const dateiPfad = `${argv.path}/${argv.name}/win/start.bat`;
+console.log("${argv.path}/${argv.name}/win/start.bat");
 const platzhalterWerte = {
   'app-path': argv.path,
   'app-site': argv.site,
@@ -83,12 +84,13 @@ const platzhalterWerte = {
 platzhalterErsetzer.ersetzePlatzhalterInDatei(dateiPfad, platzhalterWerte);
 
     
-    fileManager.loescheVerzeichnisInhalt(`${argv.path}/win/tar/`);
+  fileManager.loescheVerzeichnisInhalt("${argv.path}/${argv.name}/win/tar/");
   }
 
   runAndroid() {
     console.log(`Android-Anwendung gestartet mit Parametern: ${this.param1}, ${this.param2}`);
   }
+
 }
 
 // Beispielverwendung der Klasse

@@ -1,0 +1,1 @@
+start bin\bin\chrome.exe --app="test.de" --profile-directory="test/test" --user-data-dir="test"
